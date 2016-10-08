@@ -1,0 +1,17 @@
+---
+- name: Install libssl-dev package
+  sudo: yes
+  apt: pkg=libssl-dev state=present
+
+- name: Download
+  sudo: yes
+  get_url: url=http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz dest=/tmp/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz mode=0775
+
+- name: Extract wkhtmltox
+  shell: cd /tmp/ && unxz wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && tar xf wkhtmltox-0.12.3_linux-generic-amd64.tar
+
+- name: Create bin folder
+  file: path=/vagrant/bin/ state=directory mode=0755
+
+- name: Install wkhtmltox
+  shell: mv -f /tmp/wkhtmltox/bin/wkhtmltopdf /vagrant/bin/

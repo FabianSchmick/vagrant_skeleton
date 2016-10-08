@@ -1,0 +1,28 @@
+---
+# application tasks to be customized and to run after the main provision
+- shell: 'id -g vagrant | xargs'
+  register: uid_vagrant
+
+- shell: 'getent group vagrant | cut -d: -f3 | xargs'
+  register: gid_vagrant
+
+- name: Create tmpfs
+  sudo: yes
+  mount: name=/vagrant/var/cache src=none fstype=tmpfs opts="size=256m,uid=1000,gid=1000" state=mounted
+
+- name: Composer install
+  shell: cd /vagrant && composer install
+
+- cron: name="Clear profiler cache"
+        user="root"
+        weekday="*"
+        minute="5/*"
+        hour="*"
+        job="cd /vagrant/app/cache/dev/profiler && ls -t | awk 'NR>5' | xargs rm -rf"
+
+- cron: name="Clear profiler cache"
+        user="root"
+        weekday="*"
+        minute="5/*"
+        hour="*"
+        job="cd /vagrant/app/cache/prod/profiler && ls -t | awk 'NR>5' | xargs rm -rf"
