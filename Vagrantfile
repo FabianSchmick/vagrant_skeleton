@@ -15,10 +15,10 @@ end
 Vagrant.configure("2") do |config|
 
     config.vm.provider :virtualbox do |v|
-        v.name = "XXX"
+        v.name = "PROJECTNAME"
         v.customize [
             "modifyvm", :id,
-            "--name", "XXX",
+            "--name", "PROJECTNAME",
             "--memory", 4096,
             "--natdnshostresolver1", "on",
             "--cpus", 2,
@@ -51,11 +51,11 @@ Vagrant.configure("2") do |config|
             ansible.limit = 'all'
             ansible.extra_vars = {
                 private_interface: "192.168.56.130",
-                hostname: "XXX"
+                hostname: "PROJECTNAME"
             }
         end
     else
-        config.vm.provision :shell, path: "ansible/bootstrap.sh", args: ["XXX"]
+        config.vm.provision :shell, path: "ansible/bootstrap.sh", args: ["PROJECTNAME"]
     end
 
     # see https://github.com/mitchellh/vagrant/issues/4204, but doesn't work well with winnfsd
