@@ -2,7 +2,7 @@
 
 - name: Add ppa Repository
   sudo: yes
-  apt_repository: repo=ppa:ondrej/php5-5.6
+  apt_repository: repo=ppa:ondrej/php
 
 - name: Add multiverse Repositories
   sudo: yes
