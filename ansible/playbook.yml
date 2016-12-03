@@ -3,7 +3,7 @@
   remote_user: vagrant
   roles:
     - init
-    - php5-fpm
+    - php5.6-fpm
     - apache-fpm
     - mysql
     - composer
