@@ -5,6 +5,7 @@ Vagrant skeleton including ansible configuration for web development
 ## Installation
 
 What you need:
+- Vagrant (https://www.vagrantup.com/)
 - VirtualBox (https://www.virtualbox.org/)
 - Terminal (recommend Cygwin: https://www.cygwin.com/)
 
