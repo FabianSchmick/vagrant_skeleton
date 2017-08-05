@@ -36,6 +36,7 @@
     - git
     - htop
     - imagemagick
+    - unzip
 
 - name: Configure the timezone
   sudo: yes
