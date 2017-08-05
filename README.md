@@ -16,7 +16,9 @@ What you need:
 	- Run "vagrant up"
     - Wait until it's finished
     - Put your public files into the web directory
-- Open your browser and open the address "192.168.56.130"
+- Go to your operating systems hosts file (e. g. Win7: C:\Windows\System32\drivers\etc)
+    - Write an entry like: 192.168.56.128 	local.projectname.com
+- Open local.projectname.com in your browser
 
 ## Useful Vagrant commands
 - vagrant up (starts the vagrant machine)
