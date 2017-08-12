@@ -27,3 +27,21 @@ What you need:
 - vagrant halt (halts, but doesn't work sometimes)
 - vagrant destroy (destroys)
 - vagrant status (status)
+
+## Available roles
+Choose your roles in ansible/playbook.yml
+
+- apache-fpm
+- app
+- composer
+- dotfiles
+- init
+- mailhog
+- mysql
+- nginx
+- ngrok
+- nodejs
+- php5.6-fpm
+- php7.0-fpm
+- php7.1-fpm
+- ruby
