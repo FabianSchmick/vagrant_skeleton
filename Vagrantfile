@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
         v.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
     end
 
-    config.vm.box = "ubuntu/trusty64"
+    config.vm.box = "bento/ubuntu-16.04"
 
     if Vagrant.has_plugin?("vagrant-cachier")
             config.cache.scope = :box
