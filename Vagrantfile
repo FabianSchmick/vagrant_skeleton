@@ -22,14 +22,14 @@ Vagrant.configure("2") do |config|
             "--memory", 4096,
             "--natdnshostresolver1", "on",
             "--cpus", 2,
-            "--nictype1", "Am79C973",
-            "--nictype2", "Am79C973"
+            "--nictype1", "virtio",
+            "--nictype2", "virtio"
         ]
         # Set the timesync threshold to 10 seconds, instead of the default 20 minutes, see https://twitter.com/dhrrgn/status/519166134537310208
         v.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
     end
 
-    config.vm.box = "ubuntu/trusty64"
+    config.vm.box = "bento/ubuntu-14.04"
 
     if Vagrant.has_plugin?("vagrant-cachier")
             config.cache.scope = :box
