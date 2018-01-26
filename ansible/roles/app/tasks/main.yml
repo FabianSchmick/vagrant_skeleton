@@ -10,19 +10,12 @@
   mount: name=/vagrant/app/cache src=none fstype=tmpfs opts="size=256m" state=mounted
 
 - name: Composer install
-  sudo: yes
   shell: cd /vagrant && composer install
 
-- cron: name="Clear profiler cache"
-        user="root"
-        weekday="*"
-        minute="*/5"
-        hour="*"
-        job="cd /vagrant/app/cache/dev/profiler && ls -t | awk 'NR>5' | xargs rm -rf"
-
-- cron: name="Clear profiler cache"
-        user="root"
-        weekday="*"
-        minute="*/5"
-        hour="*"
-        job="cd /vagrant/app/cache/prod/profiler && ls -t | awk 'NR>5' | xargs rm -rf"
+# can't login as mysql user root from normal user account in ubuntu 16.04
+# see:
+# https://askubuntu.com/questions/766334/cant-login-as-mysql-user-root-from-normal-user-account-in-ubuntu-16-04
+# https://askubuntu.com/questions/763336/cannot-enter-phpmyadmin-as-root-mysql-5-7
+- name: Update root password
+  sudo: yes
+  shell: sudo mysql -u root --execute="ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY ''";

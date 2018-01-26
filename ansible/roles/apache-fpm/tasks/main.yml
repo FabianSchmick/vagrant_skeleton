@@ -25,11 +25,11 @@
   sudo: yes
   template: src=fastcgi.conf.tpl dest=/etc/apache2/conf-available/php5-fpm.conf
 
+- name: Ensure env is set
+  lineinfile: dest=/etc/apache2/envvars line='export APACHE_ARGUMENTS=-DDEVELOPMENT'
+
 - name: Reload config
   sudo: yes
   command: a2enconf php5-fpm.conf
   notify:
     - restart apache
-
-- name: Ensure env is set
-  lineinfile: dest=/etc/apache2/envvars line='export APACHE_ARGUMENTS=-DDEVELOPMENT'

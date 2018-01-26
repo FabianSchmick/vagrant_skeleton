@@ -21,20 +21,16 @@ Vagrant.configure("2") do |config|
             "--name", "PROJECTNAME",
             "--memory", 4096,
             "--natdnshostresolver1", "on",
+            "--cableconnected1", "on",
             "--cpus", 2,
-            "--nictype1", "Am79C973",
-            "--nictype2", "Am79C973"
+            "--nictype1", "virtio",
+            "--nictype2", "virtio"
         ]
         # Set the timesync threshold to 10 seconds, instead of the default 20 minutes, see https://twitter.com/dhrrgn/status/519166134537310208
         v.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
     end
 
     config.vm.box = "bento/ubuntu-16.04"
-
-    if Vagrant.has_plugin?("vagrant-cachier")
-            config.cache.scope = :box
-    end
-    # config.vm.box_url = "https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box"
 
     config.vm.network :private_network, ip: "192.168.56.128"
 
@@ -58,7 +54,11 @@ Vagrant.configure("2") do |config|
         config.vm.provision :shell, path: "ansible/bootstrap.sh", args: ["PROJECTNAME"]
     end
 
+    if Vagrant.has_plugin?("vagrant-cachier")
+        config.cache.scope = :box
+    end
+
     # see https://github.com/mitchellh/vagrant/issues/4204, but doesn't work well with winnfsd
-    config.vm.synced_folder "./", "/vagrant", type: "nfs"
+    config.vm.synced_folder "./", "/vagrant"
 
 end

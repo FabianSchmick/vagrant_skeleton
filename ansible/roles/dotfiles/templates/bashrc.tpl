@@ -148,10 +148,24 @@ esac
 
 USER=`whoami`
 
+# see https://gist.github.com/sindresorhus/3898739
+git_branch(){
+  export GITBRANCH=""
+
+  BRANCH=$(git symbolic-ref --short HEAD 2> /dev/null)
+  if [[ -z "$BRANCH" ]]; then
+      return 0
+  fi
+
+  GITBRANCH="($BRANCH)"
+
+  echo " ${GITBRANCH}"
+}
+
 function prompt_func() {
-prompt="\n${Cyan}\t ${USER,,}@\h ${TITLEBAR}${Blue}[${BRed}\w${Green}${Blue}]${NC}"
-# When you have colors and other non-printing escape sequences in your prompt, you have to surround them with escaped single brackets. \[${NC}\]
-PS1="${SCREENTITLE}${prompt}${White}\n ➔ \[${NC}\]"  # ➔ = \342\236\224
+  prompt="\n${Cyan}\t ${USER,,}@\h ${TITLEBAR}${Blue}[${BRed}\w${Green}$(git_branch)${Blue}]${NC}"
+  # When you have colors and other non-printing escape sequences in your prompt, you have to surround them with escaped single brackets. \[${NC}\]
+  PS1="${SCREENTITLE}${prompt}${White}\n ➔ \[${NC}\]"  # ➔ = \342\236\224
 }
 
 PROMPT_COMMAND=prompt_func
